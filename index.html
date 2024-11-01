@@ -8,6 +8,16 @@
     <title>Movable Element</title>
   </head>
   <body>
-    <div id="box"></div>
+    <div id="ui">
+      <label for="speed">Speed: </label>
+      <input type="number" id="speed" value="10" />
+      <label for="obstaclesInput">Obstacles: </label>
+      <input type="number" id="obstaclesInput" value="50" />
+      <button id="generateBtn">Generate</button>
+    </div>
+    <div id="container">
+      <div id="box"></div>
+      <div id="obstacles"></div>
+    </div>
   </body>
 </html>
