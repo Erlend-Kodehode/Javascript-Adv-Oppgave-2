@@ -8,6 +8,8 @@ const ui = document.querySelector("#ui");
 const uiHeight = ui.getBoundingClientRect().height;
 let x = 0;
 let y = uiHeight;
+let prevX = 0;
+let prevY = 0;
 let speed = parseInt(speedInput.value);
 let obstaclesnum = parseInt(obstaclesInput.value);
 let inElement = false;
@@ -28,12 +30,20 @@ function collisionDetect() {
     const obstWidth = obstacle.getBoundingClientRect().width;
     const obstHeight = obstacle.getBoundingClientRect().height;
     if (
-      x + boxWidth / 2 >= obstX - obstWidth / 2 &&
-      x - boxWidth / 2 <= obstX + obstWidth / 2 &&
-      y + boxHeight / 2 >= obstY - obstHeight / 2 &&
-      y - boxHeight / 2 <= obstY + obstHeight / 2
+      x + boxWidth / 2 > obstX - obstWidth / 2 &&
+      x - boxWidth / 2 < obstX + obstWidth / 2 &&
+      y + boxHeight / 2 > obstY - obstHeight / 2 &&
+      y - boxHeight / 2 < obstY + obstHeight / 2
     ) {
-      console.log("hit");
+      if (y < prevY) {
+        y = obstY + obstHeight;
+      } else if (y > prevY) {
+        y = obstY - obstHeight;
+      } else if (x < prevX) {
+        x = obstX + obstWidth;
+      } else if (x > prevX) {
+        x = obstX - obstWidth;
+      }
     }
   }
 }
@@ -79,6 +89,8 @@ document.body.addEventListener("click", (e) => {
 });
 
 window.addEventListener("keydown", (e) => {
+  prevY = y;
+  prevX = x;
   switch (e.key) {
     case "ArrowUp":
     case "w":
